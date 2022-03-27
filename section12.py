@@ -31,8 +31,8 @@ print('Cursor Type : ', type(c))
 # phone text, website TEXT, regdate TEXT)")
 
 # Input Date to Table
-# c.execute("INSERT INTO users VALUES(1, 'kim', 'rlaghwns1995@naver.com', '010-6737-2404', 'hojunday.naver.com', ?)", (nowDateTime,))
-# c.execute("INSERT INTO users(id, username, email, phone, website, regdate) VALUES(?, ?, ?, ?, ?, ?)",(2, 'park', 'park@daum.et', '010-1111-1111', 'par.com', nowDateTime))
+c.execute("INSERT INTO users VALUES(1, 'kim', 'rlaghwns1995@naver.com', '010-6737-2404', 'hojunday.naver.com', ?)", (nowDateTime,))
+c.execute("INSERT INTO users(id, username, email, phone, website, regdate) VALUES(?, ?, ?, ?, ?, ?)",(2, 'park', 'park@daum.et', '010-1111-1111', 'par.com', nowDateTime))
 
 # Many 삽입 (튜플, 리스트)
 userList = ( \
@@ -41,5 +41,17 @@ userList = ( \
     (5, 'hwang', 'hwang@naver.com', '010-4444-4444', 'hwang.com', nowDateTime)
 )
 
-c.executemany("INSERT INTO users(id, username, email, phone, website, regdate \
-    VALUES (?,?,?,?,?,?)", userList)
+c.executemany("INSERT INTO users(id, username, email, phone, website, regdate) VALUES (?,?,?,?,?,?)", userList)
+
+# 테이블 데이터 삭제
+# conn.execute("DELETE FROM users")
+
+# print("users db deleted : ", conn.execute("DELETE FROM users").rowcount)
+
+# 커밋 : isolation_level = None 일 경우 자동 반영 (오토 커밋)
+# 오토커밋 안했을 경우 conn.commit 명령어 실행하여 커밋 해주어야 한다. 
+# 롤백 시킬 때에는 conn.rollback 처리 해주어야 한다. 
+
+conn.close()
+
+
