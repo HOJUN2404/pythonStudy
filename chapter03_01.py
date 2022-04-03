@@ -122,9 +122,34 @@ m *= 2
 print('ex6-3 :', l, m, id(l), id(m))
 
 
+# sort vs sorted
+# reverse, key = len, key = str.lower, key = func
 
+f_list = ['orange', 'apple', 'mango', 'papaya', 'lomon', 'strawberry', 'coconut']
 
+# sorted : 정렬 후 '새로운' 객체 반환
 
+print('ex7-1 :', sorted(f_list))
+print('ex7-2 :', sorted(f_list, reverse=True))
+print('ex7-2 :', sorted(f_list, key=len))
+print('ex7-3 :', sorted(f_list, key=str.lower))
+print('ex7-3 :', sorted(f_list, key=lambda x:x[-1]))
+print('ex7-3 :', sorted(f_list, key=lambda x:x[-1], reverse=True))
 
+print('ex7-6 :', f_list)
 
+print()
+
+# sort : 정렬 후 객체 직접 변경
+# 반환 값 확인 None
+
+a = f_list.sort()
+
+print(a, f_list)
+
+print('ex 7-7 :', f_list.sort(), f_list)
+print('ex 7-8 :', f_list.sort(reverse=True), f_list)
+print('ex 7-9 :', f_list.sort(key=len), f_list)
+print('ex 7-10 :', f_list.sort(key=lambda x:x[-1]), f_list)
+print('ex 7-11 :', f_list.sort(key=lambda x:x[-1], reverse=True), f_list)
 
