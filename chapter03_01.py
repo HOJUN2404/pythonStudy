@@ -28,4 +28,3 @@ print('ex1-1 -', code1)
 print('ex1-2 -', code2)
 print('ex1-3 -', code3)
 print('ex1-4 -', code4)
-
