@@ -81,12 +81,45 @@ print('ex4-6 -', [id(i) for i in marks2])
 
 
 
+# Tuple Advanced
+
+# Packing & Unpacking
+
+print('ex5-1 : ', divmod(100, 9))
+print('ex5-2 : ', divmod(*(100, 9)))
+print('ex5-3 :', *(divmod(100,9)))
+
+x, y, *rest = range(10)
+print('ex5-4 :', x, y, rest)
+
+x, y, *rest = range(2)
+print('ex5-5 :', x, y, rest)
+
+x, y, *rest = 1, 2, 3, 4, 5
+print('ex5-5 :', x, y, rest)
+
+print()
+print()
+
+# Mutable(가변) vs Imutable(불변)
+
+l = (10, 15, 20)
+m = [10, 15, 20]
+
+print('ex6-1 :', l, m, id(l), id(m))
+
+# 아래 방법은 새로운 메모리 주소에 다시 할당하게 된다. 
+l = l * 2
+m = m * 2
+
+print('ex6-2 :', l, m, id(l), id(m))
 
 
+# 아래 방법에서 List는 같은 메모리 주소에 재할당 하게 된다. 
+l *= 2
+m *= 2
 
-
-
-
+print('ex6-3 :', l, m, id(l), id(m))
 
 
 
