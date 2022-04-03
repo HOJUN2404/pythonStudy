@@ -28,3 +28,70 @@ print('ex1-1 -', code1)
 print('ex1-2 -', code2)
 print('ex1-3 -', code3)
 print('ex1-4 -', code4)
+print('ex1-5', [chr(s) for s in code1])
+print('ex1-6', [chr(s) for s in code2])
+print('ex1-7', [chr(s) for s in code3])
+print('ex1-8', [chr(s) for s in code4])
+
+print()
+print()
+
+# Generator
+
+import array
+
+# Generattor : 한 번에 한 개의 항목을 생성 (메모리 유지 x)
+tuple_g = (ord(s) for s in chars)
+# array
+array_g = array.array('I', (ord(s) for s in chars))
+
+print('ex2-1 -', tuple_g)
+print('ex2-2 -', next(tuple_g))
+print('ex2-3 -', next(tuple_g))
+print('ex2-4 -', array_g)
+print('ex2-5 -', array_g.tolist())
+
+print()
+print()
+
+# Generator 예제
+
+print('ex3-1 -', ('%s' % c + str(n) for c in ['A', 'B', 'C', 'D'] for n in range(1,11)))
+
+for s in ('%s' % c + str(n) for c in ['A', 'B', 'C', 'D'] for n in range(1,11)):
+    print('ex3-2 -', s)
+
+# 리스트 주의할 점
+marks1 = [['~'] * 3 for n in range(3)]
+marks2 = [['~'] * 3] * 3
+
+print('ex4-1 -', marks1)
+print('ex4-2 -', marks2)
+
+marks1[0][1] = 'x'
+marks2[0][1] = 'x'
+
+print('ex4-3 -', marks1)
+print('ex4-4 -', marks2)
+
+# 증명
+print('ex4-5 -', [id(i) for i in marks1])
+print('ex4-6 -', [id(i) for i in marks2])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
