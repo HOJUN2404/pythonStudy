@@ -49,6 +49,15 @@ print()
 print('ex2-3',)
 print(n_code2)
 
+print()
+print()
+print()
+print()
+print()
+print()
+print()
+print()
+
 # Dict Setdefault 예제
 source = (('k1', 'val1'),
             ('k1', 'val2'),
@@ -59,9 +68,73 @@ source = (('k1', 'val1'),
 
 
 new_dict1 = {}
-
+new_dict2 = {}
 
 # No use setdefault
+for k, v in source:
+    if k in new_dict1:
+        new_dict1[k].append(v)
+    else:
+        new_dict1[k] = [v]
+
+print('ex3-1 : ', new_dict1)
 
 
-# Use setdefault
+
+# Use setdefault -> 중복되는 key가 있으면 append 하겠다. 
+for k, v in source:
+    new_dict2.setdefault(k, []).append(v)
+
+print('ex3-2 : ', new_dict2)
+
+
+# 사용자 정의 dict 상속 (UesrDict 가능)
+
+class UserDict(dict):
+    def __missing__(self, key):
+        print('Called : __missing__')
+        if isinstance(key, str):
+            raise KeyError(key)
+        return self[str(key)]
+
+    def get(self, key, default=None):
+        print('Called : __getitem__')
+        try:
+            return self[key]
+        except KeyError:
+            return default
+
+    def __contains__(self, key):
+        print('Called : __contains_')
+        return key in self.keys() or str(key) in self.keys()
+
+user_dict1 = UserDict(one=1, two=2)
+user_dict2 = UserDict({'one':1, 'two':2})
+user_dict3 = UserDict([('one',1), ('two',2)])
+
+
+
+# 출력
+print('ex4-1 :', user_dict1)
+print('ex4-2 :', user_dict2)
+print('ex4-3 :', user_dict3)
+
+print('ex4-4', user_dict2.get('two'))
+print('ex4-5', user_dict2.get('two2'))
+
+print('ex4-6', 'one' in user_dict3)
+print('ex4-6', user_dict3['three'])
+
+print('ex4-7 :', 'three' in user_dict3)
+
+
+
+
+
+
+
+
+
+
+    
+    
