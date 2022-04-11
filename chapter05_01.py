@@ -197,7 +197,7 @@ print('ex 7-4 : ', ss1 is ss2, ss1 == ss2, id(ss1), id(ss2))
 
 
 
-
+ 
 
 
 
