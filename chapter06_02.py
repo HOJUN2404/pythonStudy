@@ -83,6 +83,7 @@ print()
 
 # 메모리 사용량 비교
 import imp
+from msilib.schema import RadioButton
 import timeit
 
 # 측정을 위한 함수 선언
@@ -164,6 +165,10 @@ print('ex4-4 :', i2[4])
 print('ex4-5 :', i2[4:10])
 print('ex4-6 :', 3 in i2[1:10])
 
+print()
+print()
+print()
+
 
 import abc
 
@@ -174,7 +179,59 @@ class RandomMachine(abc.ABC):
     def load(self, iterobj):
         '''Iterable 항목 추가'''
 
+    # 추상메소드
+    @abc.abstractclassmethod
+    def pick(self, iterobj):
+        '''무작위 항목 뽑기'''
 
+    def inspect(self):
+        items = []
+        while True:
+            try:
+                items.append(self.pick())
+            except LookupError:
+                break
+            return tuple(sorted(items))
+
+
+import random
+
+class CraneMachine(RandomMachine):
+    def __init__(self, items):
+        self._randomizer = random.SystemRandom()
+        self._items = []
+        self.load(items)
+
+    def load(self, items):
+        self._items.extend(items)
+        self._randomizer.shuffle(self._items)
+
+    def pick(self):
+        try:
+            return self._items.pop()
+        except IndexError:
+            raise LookupError('Empty Crane Box')
+
+    def __call__(self):
+        return self.pick()
+
+
+# 서브클래스 확인
+print('ex5-1 :', issubclass(RandomMachine, CraneMachine))
+print('ex5-2 :', issubclass(CraneMachine, RandomMachine))
+
+
+# 상속구조 확인
+print('ex5-3 :', CraneMachine.__mro__)
+
+cm = CraneMachine(range(1, 100))
+
+print('ex5-4 :', cm._items)
+print('ex5-5 :', cm.pick())
+
+# Callable 됐는지 확인
+print('ex5-5 :', cm())
+print('ex5-5 :', cm.inspect())
 
 
 
