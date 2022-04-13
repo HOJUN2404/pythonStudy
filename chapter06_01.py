@@ -30,7 +30,9 @@ while True:
         break
 
 
+from ast import Yield
 from collections import abc
+from email import generator
 
 # 반복형 확인
 print('ex1-3 :', hasattr(t, '__iter__'))
@@ -115,6 +117,117 @@ print()
 print()
 
 # Generator 예제 1
+
+def generator_ex1():
+    print('start!')
+    yield 'AAA'
+    print('continue')
+    yield 'BBB'
+    print('end')
+
+temp = iter(generator_ex1())
+
+print('ex4-1 :', next(temp))
+print('ex4-2 :', next(temp))
+# print('ex4-3 :', next(temp))
+
+for v in generator_ex1():
+    pass
+    # print('ex4-3 :', v)
+
+
+# Generator 예제 2
+
+temp2 = [x * 3 for x in generator_ex1()]
+temp3 = (x * 3 for x in generator_ex1())
+
+print('ex5-1 :', temp2)
+print('ex5-2 :', temp3)
+
+for i in temp2:
+    print('ex5-3 :', i)
+
+for i in temp3:
+    print('ex5-4 :', i)
+
+print()
+print()
+print()
+
+# Generator 예제3 (자주 사용하는 함수..)
+
+import itertools
+
+gen1 = itertools.count(1, 2.5)
+
+print('ex6-1 :', next(gen1))
+print('ex6-2 :', next(gen1))
+print('ex6-3 :', next(gen1))
+print('ex6-4 :', next(gen1))
+# . . . 무한
+
+
+# 조건
+print()
+print()
+
+gen2 = itertools.takewhile(lambda n : n < 1000, itertools.count(1, 2.5))
+
+for v in gen2:
+    print('ex 6-5 :', v)
+
+
+# 필터 반대
+gen3 = itertools.filterfalse(lambda n : n < 3, [1,2,3,4,5])
+
+for v in gen3:
+    print('ex6-6 :', v)
+
+print()
+print()
+
+# 누적합계
+gen4 = itertools.accumulate([x for x in range(1, 101)])
+
+for v in gen4:
+    print('ex6-7 :', v) 
+
+
+print()
+print()
+
+# 연결
+gen5 = itertools.chain('ABCDE', range(1, 11, 2))
+
+print('ex6-8 :', list(gen5))
+
+
+# 연결2
+gen6 = itertools.chain(enumerate('ABCDE'))
+
+print('ex6-9 :', list(gen6))
+
+# 개별
+gen7 = itertools.product('ABCDE')
+print('ex6-10 :', list(gen7))
+
+# 연산
+gen8 = itertools.product('ABCDE', repeat=2)
+print('ex6-11 :', list(gen8))
+
+# 그룹화
+gen9 = itertools.groupby('AAABBCCCCCDDEEEEE')
+# print('ex6-12 :', list(gen9))
+
+for chr, group in gen9:
+    print('ex6-12 :', chr, ' : ', list(group))
+
+
+
+
+
+
+
 
 
 
