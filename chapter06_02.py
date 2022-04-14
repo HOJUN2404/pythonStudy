@@ -107,6 +107,167 @@ print('ex2-2 :', su.send(40))
 print('ex2-3 :', su.send(60))
 
 
+# 코루틴 예제3 (예외처리)
+class SampleException(Exception):
+    '''설명에 사용할 예외 유형'''
+
+
+def coroutine_except():
+    print('>> coroutine started')
+    try:
+        while True:
+            try:
+                x = yield
+            except SampleException:
+                print('-> SampleException handled. Continuing..')
+            else:
+                print('-> coroutine received : {}'.format(x))
+    finally:
+        print('-> coroutine ending')
+
+
+exe_co = coroutine_except()
+
+print('ex3-1 :', next(exe_co))
+print('ex3-2 :', exe_co.send(10))
+print('ex3-3 :', exe_co.send(100))
+print('ex3-4 :', exe_co.throw(SampleException))
+print('ex3-5 :', exe_co.send(1000))
+print('ex3-6 :', exe_co.close())
+
+print()
+print()
+
+# 코루틴 예제4 (Return)
+
+def averager_re():
+    total = 0.0
+    cnt = 0
+    avg = None
+    while True:
+        term = yield
+        if term is None:
+            break
+        total += term
+        cnt += 1
+        avg = total / cnt
+    return 'Average : {}'.format(avg)
+
+
+avger2 = averager_re()
+
+next(avger2)
+
+avger2.send(10)
+avger2.send(30)
+avger2.send(50)
+
+try:
+    avger2.send(None)
+except StopIteration as e:
+    print('ex4-1 :', e.value)
+
+
+
+# 코루틴 예제 5 (yield from)
+# StopIteration 자동 처리 (3.7 이상 버전에서는 await)
+# 중첩 코루틴 처리
+
+def gen1():
+    for x in 'AB':
+        yield x
+    for y in range(1,4):
+        yield y
+
+t1 = gen1()
+
+print('ex5-1 :', next(t1))
+print('ex5-2 :', next(t1))
+print('ex5-3 :', next(t1))
+print('ex5-4 :', next(t1))
+print('ex5-5 :', next(t1))
+
+t2 = gen1()
+
+print('ex5-7 :', list(t2))
+
+print()
+print()
+
+def gen2():
+    yield from 'AB'
+    yield from range(1,4)
+
+t3 = gen2()
+
+print('ex6-1 :', next(t3))
+print('ex6-2 :', next(t3))
+print('ex6-3 :', next(t3))
+print('ex6-4 :', next(t3))
+print('ex6-5 :', next(t3))
+
+
+t4 = gen2()
+
+print('ex6-7 :', list(t4))
+
+print()
+print()
+
+
+def gen3_sub():
+    print('sub coroutine')
+    x = yield 10
+    print('Recv : ', str(x))
+    x = yield 100
+    print('Recv : ', str(x))
+
+def gen4_main():
+    yield from gen3_sub()
+
+t5 = gen4_main()
+
+print('ex7-1 :', next(t5))
+print('ex7-1 :', t5.send(7))
+print('ex7-1 :', t5.send(77))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
