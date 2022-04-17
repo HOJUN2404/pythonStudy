@@ -96,18 +96,37 @@ def main(separate_many):
 
     # 시작시간
     start_tm = time.time()
+    # futures
+    futures_list = []
     # 결과건수
     # ProcessPoolExecutor : GIL 우회, 변경후 - >
     # ThreadPoolExcutor :  GIL 종속
     with futures.ThreadPoolExecutor() as executor:
-        # map -> 작업순서를 유지하고 즉시 실행
-        result_cnt = executor.map(separate_many, sorted(NATION_LS))
+        # submit -> Callable 객체 스케쥴링(예약) -> Future 로 반환
+        # Future -> result(), done(), as_complete() 주로 사용
+        for nt in sorted(NATION_LS):
+            # future 반환
+            future = executor.submit(separate_many, nt)
+            # 스케쥴링
+            futures_list.append(future)
+            # 출력1
+            # print('Scheduled for {} : {}'.format(nt, future))
+            # print()
+        
+        for future in futures.as_completed(futures_list):
+            result = future.result()
+            done = future.done()
+            cancelled = future.cancelled
+            # future 결과 확인
+            print('Future Result : {}, Done : {}'.format(result, done))
+            print('Future Cancelled : {}'.format(cancelled))
+        
     # 종료시간
     end_tm = time.time() - start_tm
 
     msg = '\n{} csv separated in {:.2f}s'
 
-    print(msg.format(list(result_cnt), end_tm))
+    print(msg.format(list(futures_list), end_tm))
 
 
 
