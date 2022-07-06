@@ -44,3 +44,12 @@ print();
 
 
 
+
+
+print();
+print("여기부터");
+
+testVar = 555.2
+
+print(type(testVar))
+
