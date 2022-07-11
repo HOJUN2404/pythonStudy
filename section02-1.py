@@ -53,3 +53,8 @@ testVar = 555.2
 
 print(type(testVar))
 
+print(id(testVar))
+
+testVar = 545
+
+print(id(testVar))
