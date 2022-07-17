@@ -16,9 +16,9 @@ c = conn.cursor()
 # print('One -> \n', c.fetchone())
 
 # 지정로우 선택
-# print('Three -> \n', c.fetchmany(size=3))
+# print('Three -> \n', c.fetchmany(size=3)
 
-# 전체 로우 선택
+# 전체 로우 선택F
 # print('All -> \n', c.fetchall())
 
 print()
